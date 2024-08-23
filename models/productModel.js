@@ -19,11 +19,16 @@ const productSchema = new mongoose.Schema({
         default:1
     },
     image:{
-        type:String
+        type:String,
+        required:true
     },
     category:{
         type:ObjectId,
         reference:"Category"
-    }
+    },
+    // count_in_stock:{
+    //     type:Number,
+    //     required:true
+    // }
 }, {timestamps:true})
 module.exports = mongoose.model("Product", productSchema)

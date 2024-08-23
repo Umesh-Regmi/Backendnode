@@ -13,14 +13,21 @@
 // console.log(os.hostname())
 
 // importing packages
+const cors = require('cors');
 const express = require('express')
 require('dotenv').config()
 require('./database/connection')
+
+const morgan = require('morgan')
 
 // creating server
 const app = express()
 const port = process.env.PORT || 8000
 app.use(express.json())
+app.use(morgan('dev'))
+app.use(cors())
+
+
 
 // function/ endpoint
 // app.get('/hello', (request, response)=>{
@@ -34,8 +41,11 @@ const productRoute = require('./routes/productRoute')
 
 // adding to the pipeline
 app.use(testRoute)
-app.use(categoryRoute)
+app.use('/category', categoryRoute)
 app.use(productRoute)
+
+app.use('public/uploads', express.static('public/uploads'))
+
 // starting server
 app.listen(port, () =>{
     console.log("App started successfully at port " +port)

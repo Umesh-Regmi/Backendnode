@@ -6,7 +6,8 @@ exports.addProduct = async(req, res) => {
         title:req.body.title,
         price:req.body.price,
         description:req.body.description,
-        category:req.body.category
+        category:req.body.category,
+        image:req.file.path
     })
     if(!product){
         return res.status(400).json({error:"Something went wrong"})
@@ -38,7 +39,8 @@ exports.updateProduct = async(req, res) => {
         description:req.body.description,
         rating:req.body.rating,
         category:req.body.category,
-        image:req.file.path
+        image:req.file.path,
+        //count_in_stock:req.body.count_in_stock
     },{new:true})
     if(!product){
         return res.status(400).json({error:"Something went wrong"})

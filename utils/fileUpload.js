@@ -5,7 +5,7 @@ const path = require('path')
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        let filepath = '/public/uploads'
+        let filepath = 'public/uploads'
         if(!fs.existsSync(filepath)){
             fs.mkdirSync(filepath,{recursive:true})
         }
@@ -14,7 +14,7 @@ const storage = multer.diskStorage({
     filename: function (req, file, cb) {
         // samsung.jpg - file name
         const ext = path.extname(file.originalname) // .jpg
-        const filename = path.basename(file.originalname, ext) // samsung
+        let filename = path.basename(file.originalname, ext) // samsung
       const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
       filename +=uniqueSuffix + ext
       cb(null, filename)
