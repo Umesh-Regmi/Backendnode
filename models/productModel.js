@@ -20,15 +20,15 @@ const productSchema = new mongoose.Schema({
     },
     image:{
         type:String,
-        required:true
+       required:true
     },
     category:{
         type:ObjectId,
-        reference:"Category"
+        ref:"Category"
     },
-    // count_in_stock:{
-    //     type:Number,
-    //     required:true
-    // }
+    count_in_stock:{
+        type:Number,
+        required:true
+    }
 }, {timestamps:true})
 module.exports = mongoose.model("Product", productSchema)

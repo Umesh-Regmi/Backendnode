@@ -38,11 +38,15 @@ app.use(cors())
 const testRoute = require('./routes/test')
 const categoryRoute = require('./routes/categoryRoute')
 const productRoute = require('./routes/productRoute')
+const userRoute = require('./routes/userRoute')
+const orderRoute = require('./routes/orderRoute')
 
 // adding to the pipeline
 app.use(testRoute)
-app.use('/category', categoryRoute)
+app.use(categoryRoute)
 app.use(productRoute)
+app.use(userRoute)
+app.use(orderRoute)
 
 app.use('public/uploads', express.static('public/uploads'))
 
