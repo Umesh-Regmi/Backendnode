@@ -2,7 +2,7 @@ const User = require('../models/userModel')
 const emailSender  = require('../utils/EmailSender')
 const Token = require('../models/tokenModel')
 const crypto = require('crypto')
-const { token } = require('morgan')
+// const { token } = require('morgan')
 const jwt = require('jsonwebtoken')
 const {expressjwt} = require('express-jwt')
 const { error } = require('console')
@@ -32,7 +32,7 @@ exports.register = async(req,res) => {
     if(!token){
         return res.status(400).json({error:"Something went wrong"})
     }
-    const url = `http://localhost:5000/verifyEmail/${token.token}`
+    const url = `${process.env.FRONTEND_URL}/emailverification/${token.token}`
 
     emailSender({
         from: "noreply@gmail.com",
@@ -48,14 +48,14 @@ exports.register = async(req,res) => {
 exports.verifyEmail = async(req,res) =>{
     let token = await Token.findOne({token: req.params.token})
     if(!token){
-        return res.status(400).json({error:"Invalid token or token may have expired"})
+        return res.status(400).json({error:"Invalid token or token may have expired.."})
     }
     let user = await User.findById(token.user)
     if(!user){
         return res.status(400).json({error:"user not found"})
     }
     if(user.isVerified){
-        return res.status(400).json({error:"User already verified. Login to continue."})
+        return res.status(400).json({error:"User already verified. Login to continue.."})
     }
     user.isVerified = true
     user = await user.save()
@@ -83,7 +83,7 @@ exports.forgetPassword = async(req, res) => {
     }
 
     // send password reset link in email
-    const url = `http://localhost:5000/resetPassword/${token.token}`
+    const url = `${process.env.FRONTEND_URL}/resetPassword/${token.token}`
     emailSender({
         from: "noreplay@gmail.com",
         to: req.body.email,
@@ -192,7 +192,7 @@ exports.resentVerification = async(req, res) => {
     }
 
     // send token in email
-    const url = `http://localhost:5000/resetPassword/${token.token}`
+    const url = `${process.env.FRONTEND_URL}/emailverification/${token.token}`
     emailSender({
         from: "noreplay@gmail.com",
         to: user.email,

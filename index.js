@@ -13,21 +13,19 @@
 // console.log(os.hostname())
 
 // importing packages
-const cors = require('cors');
-const express = require('express')
-require('dotenv').config()
-require('./database/connection')
+const cors = require("cors");
+const express = require("express");
+require("dotenv").config();
+require("./database/connection");
 
-const morgan = require('morgan')
+const morgan = require("morgan");
 
 // creating server
-const app = express()
-const port = process.env.PORT || 8000
-app.use(express.json())
-app.use(morgan('dev'))
-app.use(cors())
-
-
+const app = express();
+const port = process.env.PORT || 8000;
+app.use(express.json());
+app.use(morgan("dev"));
+app.use(cors());
 
 // function/ endpoint
 // app.get('/hello', (request, response)=>{
@@ -35,22 +33,22 @@ app.use(cors())
 // })
 
 // routes
-const testRoute = require('./routes/test')
-const categoryRoute = require('./routes/categoryRoute')
-const productRoute = require('./routes/productRoute')
-const userRoute = require('./routes/userRoute')
-const orderRoute = require('./routes/orderRoute')
+const testRoute = require("./routes/test");
+const categoryRoute = require("./routes/categoryRoute");
+const productRoute = require("./routes/productRoute");
+const userRoute = require("./routes/userRoute");
+const orderRoute = require("./routes/orderRoute");
 
 // adding to the pipeline
-app.use(testRoute)
-app.use(categoryRoute)
-app.use(productRoute)
-app.use(userRoute)
-app.use(orderRoute)
+app.use(testRoute);
+app.use(categoryRoute);
+app.use(productRoute);
+app.use(userRoute);
+app.use(orderRoute);
 
-app.use('public/uploads', express.static('public/uploads'))
+app.use("/public/uploads", express.static("public/uploads"));
 
 // starting server
-app.listen(port, () =>{
-    console.log("App started successfully at port " +port)
-})
+app.listen(port, () => {
+  console.log("App started successfully at port " + port);
+});
